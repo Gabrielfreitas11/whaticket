@@ -93,7 +93,8 @@ const CreateUserService = async ({
 
   await api.post("/register", {
     name,
-    email
+    email,
+    accountId: user.id
   });
 
   await user.$set("queues", queueIds);
