@@ -252,7 +252,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                   />
                 </div>
                 <div>
-                  <Field
+                  {/* <Field
                     as={TextField}
                     label={i18n.t("queueModal.form.token")}
                     type="token"
@@ -260,7 +260,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                     name="token"
                     variant="outlined"
                     margin="dense"
-                  />
+                  /> */}
                 </div>
                 <QueueSelect
                   selectedQueueIds={selectedQueueIds}
