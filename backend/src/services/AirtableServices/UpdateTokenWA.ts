@@ -14,7 +14,7 @@ export default async function UpdateTokenWA(payload: UpdateTokenWAPayload): Prom
     })  
 
 
-    return
+    return null
   } catch (error) {
 
     return null
