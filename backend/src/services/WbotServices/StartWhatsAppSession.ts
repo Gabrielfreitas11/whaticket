@@ -8,7 +8,7 @@ import * as Sentry from "@sentry/node";
 
 export const StartWhatsAppSession = async (
   whatsapp: Whatsapp,
-  companyId: number
+  companyId: number,
 ): Promise<void> => {
   await whatsapp.update({ status: "OPENING" });
 
@@ -22,6 +22,7 @@ export const StartWhatsAppSession = async (
     const wbot = await initWASocket(whatsapp);
     wbotMessageListener(wbot, companyId);
     wbotMonitor(wbot, whatsapp, companyId);
+  
   } catch (err) {
     Sentry.captureException(err);
     logger.error(err);

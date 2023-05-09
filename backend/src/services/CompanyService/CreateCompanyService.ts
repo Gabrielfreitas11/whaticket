@@ -4,7 +4,8 @@ import Company from "../../models/Company";
 import User from "../../models/User";
 import Setting from "../../models/Setting";
 
-import { api } from "../../libs/axios";
+import RegisterUser from "../../services/AirtableServices/RegisterUser";
+
 
 interface CompanyData {
   name: string;
@@ -79,15 +80,13 @@ const CreateCompanyService = async (
     }
   });
 
-
-   api.post("/register", {
-    name,
-    email,
-    accountId: String(company.id)
-  })
-  .then(() => console.log('Usuário cadastrado no airtable'))
-  .catch((err) => console.log(err));
-
+  await RegisterUser(    
+    {
+      name,
+      email,
+      companyId: company.id
+    }
+  )
 
   if (!created) {
     await user.update({ companyId: company.id });

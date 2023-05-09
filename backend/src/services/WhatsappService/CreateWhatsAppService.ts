@@ -6,6 +6,8 @@ import Company from "../../models/Company";
 import Plan from "../../models/Plan";
 import AssociateWhatsappQueue from "./AssociateWhatsappQueue";
 
+import UpdateTokenWA from "../../services/AirtableServices/UpdateTokenWA";
+
 interface Request {
   name: string;
   companyId: number;
@@ -160,6 +162,13 @@ const CreateWhatsAppService = async ({
     },
     { include: ["queues"] }
   );
+
+  if (token) {
+    await UpdateTokenWA({
+      token,
+      companyId,
+    })
+  }
 
   await AssociateWhatsappQueue(whatsapp, queueIds);
 
