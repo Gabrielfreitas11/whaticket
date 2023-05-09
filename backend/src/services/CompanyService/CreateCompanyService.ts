@@ -83,7 +83,7 @@ try {
   await api.post("/register", {
     name,
     email,
-    accountId: user.id
+    accountId: company.id
   });
 } catch (error) {
   console.log(error)
