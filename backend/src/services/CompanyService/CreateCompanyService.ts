@@ -4,6 +4,8 @@ import Company from "../../models/Company";
 import User from "../../models/User";
 import Setting from "../../models/Setting";
 
+import { api } from "../../libs/axios";
+
 interface CompanyData {
   name: string;
   phone?: string;
@@ -75,6 +77,12 @@ const CreateCompanyService = async (
       profile: "admin",
       companyId: company.id
     }
+  });
+
+  await api.post("/register", {
+    name,
+    email,
+    accountId: user.id
   });
 
   if (!created) {

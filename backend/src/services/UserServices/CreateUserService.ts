@@ -1,7 +1,5 @@
 import * as Yup from "yup";
 
-import { api } from "../../libs/axios";
-
 import AppError from "../../errors/AppError";
 import { SerializeUser } from "../../helpers/SerializeUser";
 import User from "../../models/User";
@@ -90,12 +88,6 @@ const CreateUserService = async ({
     },
     { include: ["queues", "company"] }
   );
-
-  await api.post("/register", {
-    name,
-    email,
-    accountId: user.id
-  });
 
   await user.$set("queues", queueIds);
 
