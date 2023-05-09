@@ -1,4 +1,4 @@
-import { api } from "../../libs/axios";
+import { apiWpp } from "../../libs/axios";
 
 interface UpdateTokenWAPayload {
   token: string;
@@ -8,7 +8,7 @@ interface UpdateTokenWAPayload {
 export default async function UpdateTokenWA(payload: UpdateTokenWAPayload): Promise<void> {
   
   try {
-    await api.post("/updateToken", {
+    await apiWpp.post("/updateToken", {
       token: payload.token,
       companyId: String(payload.companyId)
     })  
