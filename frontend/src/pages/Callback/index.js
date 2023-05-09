@@ -12,7 +12,7 @@ import { CallbackContainer } from "./styles";
 import { apiWhatsApp } from "../../services/api";
 import { i18n } from "../../translate/i18n";
 
-import { AuthContext } from "../context/Auth/AuthContext";
+import { AuthContext } from "../../context/Auth/AuthContext";
 
 export default function Callback() {
   const query = useQuery();
