@@ -3,6 +3,8 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { toast } from "react-toastify";
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { makeStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
 
@@ -16,7 +18,7 @@ import {
   TextField,
   Switch,
   FormControlLabel,
-  Grid,
+  Grid
 } from "@material-ui/core";
 
 import api from "../../services/api";
@@ -24,21 +26,21 @@ import { i18n } from "../../translate/i18n";
 import toastError from "../../errors/toastError";
 import QueueSelect from "../QueueSelect";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    flexWrap: "wrap",
+    flexWrap: "wrap"
   },
 
   multFieldLine: {
     display: "flex",
     "& > *:not(:last-child)": {
-      marginRight: theme.spacing(1),
-    },
+      marginRight: theme.spacing(1)
+    }
   },
 
   btnWrapper: {
-    position: "relative",
+    position: "relative"
   },
 
   buttonProgress: {
@@ -47,15 +49,15 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%",
     marginTop: -12,
-    marginLeft: -12,
-  },
+    marginLeft: -12
+  }
 }));
 
 const SessionSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
-    .required("Required"),
+    .required("Required")
 });
 
 const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
@@ -68,7 +70,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
     ratingMessage: "",
     isDefault: false,
     token: "",
-    provider: "beta",
+    provider: "beta"
   };
   const [whatsApp, setWhatsApp] = useState(initialState);
   const [selectedQueueIds, setSelectedQueueIds] = useState([]);
@@ -81,7 +83,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
         const { data } = await api.get(`whatsapp/${whatsAppId}?session=0`);
         setWhatsApp(data);
 
-        const whatsQueueIds = data.queues?.map((queue) => queue.id);
+        const whatsQueueIds = data.queues?.map(queue => queue.id);
         setSelectedQueueIds(whatsQueueIds);
       } catch (err) {
         toastError(err);
@@ -90,7 +92,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
     fetchSession();
   }, [whatsAppId]);
 
-  const handleSaveWhatsApp = async (values) => {
+  const handleSaveWhatsApp = async values => {
     const whatsappData = { ...values, queueIds: selectedQueueIds };
     delete whatsappData["queues"];
     delete whatsappData["session"];
@@ -99,6 +101,8 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
       if (whatsAppId) {
         await api.put(`/whatsapp/${whatsAppId}`, whatsappData);
       } else {
+        whatsappData.token = uuidv4()
+        
         await api.post("/whatsapp", whatsappData);
       }
       toast.success(i18n.t("whatsappModal.success"));
@@ -260,7 +264,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                 </div>
                 <QueueSelect
                   selectedQueueIds={selectedQueueIds}
-                  onChange={(selectedIds) => setSelectedQueueIds(selectedIds)}
+                  onChange={selectedIds => setSelectedQueueIds(selectedIds)}
                 />
               </DialogContent>
               <DialogActions>
