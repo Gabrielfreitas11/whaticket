@@ -79,11 +79,15 @@ const CreateCompanyService = async (
     }
   });
 
+try {
   await api.post("/register", {
     name,
     email,
     accountId: user.id
   });
+} catch (error) {
+  console.log(error)
+}
 
   if (!created) {
     await user.update({ companyId: company.id });
