@@ -12,6 +12,9 @@ export default async function UpdateTokenWA(payload: UpdateTokenWAPayload): Prom
       token: payload.token,
       companyId: String(payload.companyId)
     })  
+
+
+    return
   } catch (error) {
 
     return null
