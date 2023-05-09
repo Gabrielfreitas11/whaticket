@@ -79,15 +79,15 @@ const CreateCompanyService = async (
     }
   });
 
-try {
-  await api.post("/register", {
+
+   api.post("/register", {
     name,
     email,
     accountId: company.id
-  });
-} catch (error) {
-  console.log(error)
-}
+  })
+  .then(() => console.log('Usuário cadastrado no airtable'))
+  .catch((err) => console.log(err));
+
 
   if (!created) {
     await user.update({ companyId: company.id });
