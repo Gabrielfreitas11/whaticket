@@ -22,19 +22,19 @@ app.set("queues", {
   sendScheduledMessages
 });
 
-const whitelist = [process.env.FRONTEND_URL, 'http://localhost:3000'];
+const whitelist = [process.env.FRONTEND_URL, 'http://localhost:3000', 'https://pg0qdt41jj.execute-api.sa-east-1.amazonaws.com'];
 
 
 app.use(
   cors({
     credentials: true,
-    // origin: (origin: any, callback: any) => {
-    //   if (whitelist.indexOf(origin) !== -1) {
-    //     callback(null, true)
-    //   } else {
-    //     callback(new Error('Not allowed by CORS'))
-    //   }
-    // }
+    origin: (origin: any, callback: any) => {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    }
   })
 );
 app.use(cookieParser());
