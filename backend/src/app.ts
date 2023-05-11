@@ -22,21 +22,17 @@ app.set("queues", {
   sendScheduledMessages
 });
 
-const whitelist = [
-  process.env.FRONTEND_URL,
-  "http://localhost:3000",
-  "https://18.229.141.17"
-];
+const whitelist = [process.env.FRONTEND_URL, 'http://localhost:3000', 'https://pg0qdt41jj.execute-api.sa-east-1.amazonaws.com'];
+
 
 app.use(
   cors({
     credentials: true,
     origin: (origin: any, callback: any) => {
-      console.log(origin)
       if (whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
+        callback(null, true)
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(new Error('Not allowed by CORS'))
       }
     }
   })
@@ -50,6 +46,9 @@ app.use(routes);
 app.use(Sentry.Handlers.errorHandler());
 
 app.use(async (err: Error, req: Request, res: Response, _: NextFunction) => {
+
+
+
   if (err instanceof AppError) {
     logger.warn(err);
     return res.status(err.statusCode).json({ error: err.message });
