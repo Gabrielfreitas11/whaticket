@@ -46,6 +46,10 @@ app.use(routes);
 app.use(Sentry.Handlers.errorHandler());
 
 app.use(async (err: Error, req: Request, res: Response, _: NextFunction) => {
+
+  const origin = req.headers.referer;
+  console.log('URL de origem:', origin);
+  
   if (err instanceof AppError) {
     logger.warn(err);
     return res.status(err.statusCode).json({ error: err.message });
