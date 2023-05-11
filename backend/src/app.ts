@@ -22,7 +22,7 @@ app.set("queues", {
   sendScheduledMessages
 });
 
-const whitelist = [process.env.FRONTEND_URL, 'http://localhost:3000', 'https://pg0qdt41jj.execute-api.sa-east-1.amazonaws.com'];
+const whitelist = [process.env.FRONTEND_URL, 'http://localhost:3000', 'https://pg0qdt41jj.execute-api.sa-east-1.amazonaws.com/dev'];
 
 
 app.use(
