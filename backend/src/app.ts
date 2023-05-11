@@ -47,8 +47,7 @@ app.use(Sentry.Handlers.errorHandler());
 
 app.use(async (err: Error, req: Request, res: Response, _: NextFunction) => {
 
-  console.log(req.headers)
-  console.log(res.header)
+  console.log(req)
 
   if (err instanceof AppError) {
     logger.warn(err);
