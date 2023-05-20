@@ -8,6 +8,8 @@ import AssociateWhatsappQueue from "./AssociateWhatsappQueue";
 
 import UpdateTokenWA from "../../services/AirtableServices/UpdateTokenWA";
 
+import UpdateSalesMessage from "../../services/AirtableServices/UpdateSalesMessage";
+
 interface Request {
   name: string;
   companyId: number;
@@ -16,6 +18,7 @@ interface Request {
   complationMessage?: string;
   outOfHoursMessage?: string;
   ratingMessage?: string;
+  salesMessage?: string;
   status?: string;
   isDefault?: boolean;
   token?: string;
@@ -40,6 +43,7 @@ const CreateWhatsAppService = async ({
   complationMessage,
   outOfHoursMessage,
   ratingMessage,
+  salesMessage,
   isDefault = false,
   companyId,
   token = "",
@@ -147,6 +151,7 @@ const CreateWhatsAppService = async ({
       greetingMessage,
       complationMessage,
       outOfHoursMessage,
+      salesMessage,
       ratingMessage,
       isDefault,
       companyId,
@@ -164,6 +169,13 @@ const CreateWhatsAppService = async ({
   if (token !== null && token !== "") {
     await UpdateTokenWA({
       token,
+      companyId
+    });
+  }
+
+  if (salesMessage) {
+    await UpdateSalesMessage({
+      message: salesMessage,
       companyId
     });
   }

@@ -4,7 +4,11 @@ import { getIO } from "../libs/socket";
 import { getWbot, removeWbot } from "../libs/wbot";
 import Whatsapp from "../models/Whatsapp";
 import DeleteBaileysService from "../services/BaileysServices/DeleteBaileysService";
-import { getAccessTokenFromPage, getPageProfile, subscribeApp } from "../services/FacebookServices/graphAPI";
+import {
+  getAccessTokenFromPage,
+  getPageProfile,
+  subscribeApp
+} from "../services/FacebookServices/graphAPI";
 import { StartWhatsAppSession } from "../services/WbotServices/StartWhatsAppSession";
 
 import CreateWhatsAppService from "../services/WhatsappService/CreateWhatsAppService";
@@ -21,6 +25,7 @@ interface WhatsappData {
   complationMessage?: string;
   outOfHoursMessage?: string;
   ratingMessage?: string;
+  salesMessage?: string;
   status?: string;
   isDefault?: boolean;
   token?: string;
@@ -60,6 +65,8 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     isDefault,
     greetingMessage,
     complationMessage,
+    ratingMessage,
+    salesMessage,
     outOfHoursMessage,
     queueIds,
     token
@@ -72,6 +79,8 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     isDefault,
     greetingMessage,
     complationMessage,
+    ratingMessage,
+    salesMessage,
     outOfHoursMessage,
     queueIds,
     companyId,
@@ -124,7 +133,6 @@ export const storeFacebook = async (
   for await (const page of data) {
     const { name, access_token, id, instagram_business_account } = page;
 
-
     const acessTokenPage = await getAccessTokenFromPage(access_token);
 
     if (instagram_business_account && addInstagram) {
@@ -151,7 +159,6 @@ export const storeFacebook = async (
 
       // await subscribeApp(instagramId, acessTokenPage);
 
-
       pages.push({
         name,
         facebookUserId: facebookUserId,
@@ -169,7 +176,6 @@ export const storeFacebook = async (
       });
 
       await subscribeApp(id, acessTokenPage);
-
     }
 
     if (!instagram_business_account) {
@@ -193,7 +199,7 @@ export const storeFacebook = async (
     }
   }
 
-  console.log(pages)
+  console.log(pages);
 
   for await (const pageConection of pages) {
     const exist = await Whatsapp.findOne({
@@ -219,8 +225,6 @@ export const storeFacebook = async (
   }
   return res.status(200);
 };
-
-
 
 export const show = async (req: Request, res: Response): Promise<Response> => {
   const { whatsappId } = req.params;
@@ -282,14 +286,12 @@ export const remove = async (
       action: "delete",
       whatsappId: +whatsappId
     });
-
   }
 
   if (whatsapp.channel === "facebook" || whatsapp.channel === "instagram") {
     const { facebookUserToken } = whatsapp;
 
     const getAllSameToken = await Whatsapp.findAll({
-
       where: {
         facebookUserToken
       }
@@ -307,7 +309,6 @@ export const remove = async (
         whatsappId: whatsapp.id
       });
     }
-
   }
 
   return res.status(200).json({ message: "Session disconnected." });

@@ -6,6 +6,8 @@ import Whatsapp from "../../models/Whatsapp";
 import ShowWhatsAppService from "./ShowWhatsAppService";
 import AssociateWhatsappQueue from "./AssociateWhatsappQueue";
 
+import UpdateSalesMessage from "../../services/AirtableServices/UpdateSalesMessage";
+
 interface WhatsappData {
   name?: string;
   status?: string;
@@ -13,6 +15,7 @@ interface WhatsappData {
   isDefault?: boolean;
   greetingMessage?: string;
   complationMessage?: string;
+  salesMessage?: string;
   outOfHoursMessage?: string;
   ratingMessage?: string;
   queueIds?: number[];
@@ -49,6 +52,7 @@ const UpdateWhatsAppService = async ({
     greetingMessage,
     complationMessage,
     outOfHoursMessage,
+    salesMessage,
     ratingMessage,
     queueIds = [],
     token
@@ -87,12 +91,20 @@ const UpdateWhatsAppService = async ({
     session,
     greetingMessage,
     complationMessage,
+    salesMessage,
     outOfHoursMessage,
     ratingMessage,
     isDefault,
     companyId,
     token
   });
+
+  if (salesMessage) {
+    await UpdateSalesMessage({
+      message: salesMessage,
+      companyId
+    });
+  }
 
   await AssociateWhatsappQueue(whatsapp, queueIds);
 
