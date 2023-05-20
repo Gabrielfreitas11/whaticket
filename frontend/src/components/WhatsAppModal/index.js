@@ -68,6 +68,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
     complationMessage: "",
     outOfHoursMessage: "",
     ratingMessage: "",
+    salesMessage: "",
     isDefault: false,
     token: "",
     provider: "beta"
@@ -267,15 +268,19 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                   />
                 </div>
                 <div>
-                  <Field
-                    as={TextField}
-                    label={i18n.t("queueModal.form.token")}
-                    type="token"
-                    fullWidth
-                    name="token"
-                    variant="outlined"
-                    margin="dense"
-                  />
+                  {whatsAppId && (
+                    <Field
+                      as={TextField}
+                      label={i18n.t("queueModal.form.token")}
+                      type="token"
+                      fullWidth
+                      name="token"
+                      variant="outlined"
+                      margin="dense"
+                      readOnly
+                      disabled
+                    />
+                  )}
                 </div>
                 <QueueSelect
                   selectedQueueIds={selectedQueueIds}
