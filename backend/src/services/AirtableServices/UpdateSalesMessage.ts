@@ -9,7 +9,7 @@ export default async function UpdateSalesMessage(
   payload: UpdateSalesMessagePayload
 ): Promise<void> {
   try {
-    await apiWpp.post("/updateClient", {
+    await apiWpp.put("/updateClient", {
       fields: {
         message: payload.message
       },
