@@ -10,6 +10,7 @@ const messages = {
         form: {
           name: "Nome",
           email: "Email",
+          phone: "Telefone",
           password: "Senha"
         },
         buttons: {

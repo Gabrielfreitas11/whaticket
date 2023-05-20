@@ -11,6 +11,7 @@ const messages = {
 				form: {
 					name: "Nombre",
 					email: "Correo Electrónico",
+					phone: "Phone",
 					password: "Contraseña",
 				},
 				buttons: {
