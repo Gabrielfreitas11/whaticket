@@ -176,6 +176,7 @@ const messages = {
           greetingMessage: "Mensagem de saudação",
           complationMessage: "Mensagem de conclusão",
           outOfHoursMessage: "Mensagem de fora de expediente",
+          salesMessage: "Mensagem após venda",
           ratingMessage: "Mensagem de avaliação",
           token: "Token"
         },

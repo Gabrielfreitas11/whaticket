@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { toast } from "react-toastify";
 
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
@@ -101,8 +101,8 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
       if (whatsAppId) {
         await api.put(`/whatsapp/${whatsAppId}`, whatsappData);
       } else {
-        whatsappData.token = uuidv4()
-        
+        whatsappData.token = uuidv4();
+
         await api.post("/whatsapp", whatsappData);
       }
       toast.success(i18n.t("whatsappModal.success"));
@@ -251,7 +251,22 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                     margin="dense"
                   />
                 </div>
-                {/* <div>
+                <div>
+                  <Field
+                    as={TextField}
+                    label={i18n.t("queueModal.form.salesMessage")}
+                    type="salesMessage"
+                    multiline
+                    rows={4}
+                    fullWidth
+                    name="salesMessage"
+                    error={touched.salesMessage && Boolean(errors.salesMessage)}
+                    helperText={touched.salesMessage && errors.salesMessage}
+                    variant="outlined"
+                    margin="dense"
+                  />
+                </div>
+                <div>
                   <Field
                     as={TextField}
                     label={i18n.t("queueModal.form.token")}
@@ -261,7 +276,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                     variant="outlined"
                     margin="dense"
                   />
-                </div> */}
+                </div>
                 <QueueSelect
                   selectedQueueIds={selectedQueueIds}
                   onChange={selectedIds => setSelectedQueueIds(selectedIds)}
