@@ -13,7 +13,7 @@ import P from "pino";
 import Whatsapp from "../models/Whatsapp";
 import { logger } from "../utils/logger";
 import MAIN_LOGGER from "@adiwajshing/baileys/lib/Utils/logger";
-import {useMultiFileAuthState} from "../helpers/useMultiFileAuthState";
+import { useMultiFileAuthState } from "../helpers/useMultiFileAuthState";
 import authState from "../helpers/authState";
 import { Boom } from "@hapi/boom";
 import AppError from "../errors/AppError";
@@ -96,14 +96,12 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
           version
         });
 
-
         wsocket.ev.on(
           "connection.update",
           async ({ connection, lastDisconnect, qr }) => {
             logger.info(
-              `Socket  ${name} Connection Update ${connection || ""} ${
-                lastDisconnect || ""
-              }`
+              `Socket  ${name} Connection Update ${connection || ""}: `,
+              lastDisconnect || ""
             );
 
             if (connection === "close") {
