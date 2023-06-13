@@ -100,11 +100,10 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
           "connection.update",
           async ({ connection, lastDisconnect, qr }) => {
             logger.info(
-              `Socket  ${name} Connection Update ${connection || ""}: `,
-              lastDisconnect || ""
+              `Socket  ${name} Connection Update ${
+                connection || ""
+              } ${JSON.stringify(lastDisconnect || {})}`
             );
-
-            console.log(lastDisconnect)
 
             if (connection === "close") {
               if ((lastDisconnect?.error as Boom)?.output?.statusCode === 403) {
