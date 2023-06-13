@@ -104,6 +104,8 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
               lastDisconnect || ""
             );
 
+            console.log(lastDisconnect)
+
             if (connection === "close") {
               if ((lastDisconnect?.error as Boom)?.output?.statusCode === 403) {
                 await whatsapp.update({ status: "PENDING", session: "" });
